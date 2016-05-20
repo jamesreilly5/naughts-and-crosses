@@ -1,4 +1,8 @@
+require_relative './helpers/logger'
+
 class Board
+  include Logging
+
   def initialize
     @board = {
       # Hash rocket over symbols because I want to use integers for grid reference
@@ -9,6 +13,8 @@ class Board
   end
 
   def valid_position?(down, across)
-    @board[down].is_a?(Hash) && !@board[down][across].nil?
+    return true if @board[down].is_a?(Hash) && !@board[down][across].nil?
+    logger.error("Invalid position: #{down}, #{across}")
+    false
   end
 end
