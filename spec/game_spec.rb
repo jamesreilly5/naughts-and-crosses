@@ -52,6 +52,7 @@ RSpec.describe Game do
         before { allow(board).to receive(:set_position).and_raise InvalidMoveError }
         it 'asks to place marker again on the next turn' do
           expect(board).to receive(:validate_marker)
+          expect(board).to receive(:report)
           game.run_next_rule
           expect(board).to receive(:set_position)
           game.run_next_rule
