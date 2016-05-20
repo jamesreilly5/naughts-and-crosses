@@ -32,4 +32,27 @@ RSpec.describe Board do
       end
     end
   end
+
+  describe '#report' do
+    # rubocop:disable IndentationWidth
+    let(:expected_output) do
+    %(
+        a   b   c
+       ___________
+    1 | x |   |   |
+       -----------
+    2 |   |   |   |
+       -----------
+    3 |   |   | o |
+       -----------
+    )
+    end
+    # rubocop:enable IndentationWidth
+
+    it 'reports the state of the board in ascii art' do
+      board.set_position('x', '1', 'a')
+      board.set_position('o', '3', 'c')
+      expect(board.report).to eq expected_output
+    end
+  end
 end
