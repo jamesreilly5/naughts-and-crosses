@@ -60,6 +60,9 @@ RSpec.describe Game do
           game.run_next_rule
         end
       end
+
+      # TODO
+      context 'when the incorrect marker is supplied'
     end
   end
 end
