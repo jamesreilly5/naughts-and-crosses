@@ -15,6 +15,7 @@ class Game
 
   def run_next_rule
     send(@rule_stack[0])
+    @board.report
   rescue InvalidMoveError
     puts 'Invalid command, please try again'
   end
