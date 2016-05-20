@@ -32,5 +32,29 @@ RSpec.describe Game do
         game.run_next_rule
       end
     end
+
+    context 'for invalid moves' do
+      context 'when place marker is invalid' do
+        before { allow(board).to receive(:validate_marker).and_raise InvalidMoveError }
+        it 'asks to place marker again on the next turn' do
+          expect(board).to receive(:validate_marker)
+          game.run_next_rule
+          expect(board).to receive(:validate_marker)
+          game.run_next_rule
+        end
+      end
+
+      context 'when set position is invalid' do
+        before { allow(board).to receive(:set_position).and_raise InvalidMoveError }
+        it 'asks to place marker again on the next turn' do
+          expect(board).to receive(:validate_marker)
+          game.run_next_rule
+          expect(board).to receive(:set_position)
+          game.run_next_rule
+          expect(board).to receive(:set_position)
+          game.run_next_rule
+        end
+      end
+    end
   end
 end
