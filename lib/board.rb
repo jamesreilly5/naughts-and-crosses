@@ -37,15 +37,15 @@ class Board
   end
   # rubocop:enable AbcSize
 
+  def validate_marker(marker)
+    return true if VALID_MARKERS.include? marker
+    raise InvalidMoveError, "Invalid marker: #{marker}"
+  end
+
   private
 
   def validate_position(down, across)
     return true if @board[down].is_a?(Hash) && !@board[down][across].nil?
     raise InvalidMoveError, "Invalid position: #{down}, #{across}"
-  end
-
-  def validate_marker(marker)
-    return true if VALID_MARKERS.include? marker
-    raise InvalidMoveError, "Invalid marker: #{marker}"
   end
 end
