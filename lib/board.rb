@@ -1,7 +1,7 @@
-require_relative './helpers/logger'
+require_relative './errors/invalid_move_error'
 
 class Board
-  include Logging
+  VALID_MARKERS = %('x', 'o').freeze
 
   def initialize
     @board = {
@@ -12,9 +12,25 @@ class Board
     }
   end
 
-  def valid_position?(down, across)
+  def set_position(marker, down, across)
+    validate_position(down, across) && validate_marker(marker)
+    @board[down][across] = marker
+  end
+
+  def marker_at_position(down, across)
+    validate_position(down, across)
+    @board[down][across]
+  end
+
+  private
+
+  def validate_position(down, across)
     return true if @board[down].is_a?(Hash) && !@board[down][across].nil?
-    logger.error("Invalid position: #{down}, #{across}")
-    false
+    raise InvalidMoveError, "Invalid position: #{down}, #{across}"
+  end
+
+  def validate_marker(marker)
+    return true if VALID_MARKERS.include? marker
+    raise InvalidMoveError, "Invalid marker: #{marker}"
   end
 end
