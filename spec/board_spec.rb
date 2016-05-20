@@ -48,7 +48,6 @@ RSpec.describe Board do
     )
     end
     # rubocop:enable IndentationWidth
-
     it 'reports the state of the board in ascii art' do
       board.set_position('x', '1', 'a')
       board.set_position('o', '3', 'c')
