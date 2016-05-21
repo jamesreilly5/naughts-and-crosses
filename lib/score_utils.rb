@@ -13,7 +13,7 @@ module ScoreUtils
   end
 
   def winning_line?(marker)
-    winning_lines_map(marker, false).reject { |hash| hash if hash[:score] > 0  }.size > 0
+    !winning_lines_map(marker, false).reject { |hash| hash if hash[:score] > 0 }.empty?
   end
 
   def winning_lines_map(marker, ignore_occupied)
@@ -21,7 +21,7 @@ module ScoreUtils
 
     @board.keys.each do |down|
       @board[down].keys.each do |across|
-        next if (marker_at_position(down, across) == marker && ignore_occupied)
+        next if marker_at_position(down, across) == marker && ignore_occupied
         add_turns_to_win_for_slot!(scores, marker, down, across)
       end
     end

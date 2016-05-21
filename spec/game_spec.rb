@@ -11,6 +11,7 @@ RSpec.describe Game do
       allow(CommandReader).to receive(:new).and_return command_reader
       allow(AIPlayer).to receive(:new).and_return ai_player
       allow(Board).to receive(:new).and_return(board)
+      allow(game).to receive(:check_if_any_player_has_won)
     end
 
     context 'when all valid inputs occur' do
@@ -19,21 +20,25 @@ RSpec.describe Game do
         expect(board).to receive(:validate_marker)
         expect(board).to receive(:opponent_marker)
         expect(board).to receive(:report)
+        expect(game).to receive(:check_if_any_player_has_won)
         game.run_next_rule
 
         expect(command_reader).to receive(:read_input)
         expect(board).to receive(:set_position)
         expect(board).to receive(:report)
+        expect(game).to receive(:check_if_any_player_has_won)
         game.run_next_rule
 
         expect(ai_player).to receive(:take_turn)
         expect(board).to receive(:set_position)
         expect(board).to receive(:report)
+        expect(game).to receive(:check_if_any_player_has_won)
         game.run_next_rule
 
         expect(command_reader).to receive(:read_input)
         expect(board).to receive(:set_position)
         expect(board).to receive(:report)
+        expect(game).to receive(:check_if_any_player_has_won)
         game.run_next_rule
       end
     end

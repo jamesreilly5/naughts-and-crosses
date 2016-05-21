@@ -15,17 +15,27 @@ class Game
 
   def run_next_rule
     puts @board.report
+    check_if_any_player_has_won
     send(@rule_stack[0])
-
   rescue InvalidMoveError => e
     puts "Invalid command: '#{e}'"
   end
 
   def game_over
-    false
+    @game_over ||= false
   end
 
   private
+
+  def check_if_any_player_has_won
+    if @board.winning_line?(@player_marker)
+      puts 'Player has won'
+      @game_over = true
+    elsif @board.winning_line?(@ai_marker)
+      puts 'AI player has won'
+      @game_over = true
+    end
+  end
 
   def choose_marker
     puts "choose your marker, either 'x' or 'o'"
