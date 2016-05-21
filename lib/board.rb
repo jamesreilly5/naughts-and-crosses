@@ -4,7 +4,7 @@ require_relative './score_utils'
 class Board
   include ScoreUtils
 
-  VALID_MARKERS = %('x', 'o').freeze
+  VALID_MARKERS = %w(x o).freeze
 
   def initialize
     @board = {
@@ -43,6 +43,10 @@ class Board
   def validate_marker(marker)
     return true if VALID_MARKERS.include? marker
     raise InvalidMoveError, "Invalid marker: #{marker}"
+  end
+
+  def opponent_marker(marker)
+    VALID_MARKERS.reject { |current_marker| current_marker == marker }[0]
   end
 
   private

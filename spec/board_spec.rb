@@ -71,4 +71,11 @@ RSpec.describe Board do
       expect(board.winning_lines('x')).to eq expected_x_output
     end
   end
+
+  describe '#oppponent_marker' do
+    it 'retirves the opponent marker for a given marker' do
+      expect(board.opponent_marker('x')).to eq 'o'
+      expect(board.opponent_marker('o')).to eq 'x'
+    end
+  end
 end
