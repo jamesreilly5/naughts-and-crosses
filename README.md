@@ -2,6 +2,8 @@
 
 A simple program with some basic AI that plays naughts and crosses
 
+![Alt text](/screenshot.png?raw=true "Naughts and crosses")
+
 ### Problem
 Write a Ruby program that can play Noughts & Crosses with some intelligence built in. For example, the computer should be able to block winning moves. A simple text­only console interface is fine.
 
