@@ -5,17 +5,17 @@ RSpec.describe CommandReader do
 
   context '#read_input' do
     context 'output' do
-      before { allow(ARGF).to receive(:gets).and_return '1', 'a', 'test' }
+      before { allow(STDIN).to receive(:gets).and_return '1', 'a', 'test' }
 
-      xit 'returns an array of the given arguments' do
+      it 'returns an array of the given arguments' do
         expect(command_reader.read_input(3)).to eq %w(1 a test)
       end
     end
 
     context 'arguments' do
-      before { allow(ARGF).to receive(:gets).and_return %w(1 2 d f g) }
+      before { allow(STDIN).to receive(:gets).and_return '1', '2', 'd', 'f', 'g' }
 
-      xit 'reads an array of the given arguments' do
+      it 'reads an array of the given arguments' do
         expect(command_reader.read_input(5)).to eq %w(1 2 d f g)
       end
     end
