@@ -42,4 +42,12 @@ RSpec.describe ScoreUtils do
       expect(board.winning_line?('o')).to eq false
     end
   end
+
+  describe '#one_move_to_win' do
+    it 'return false for a winning line' do
+      board.set_position('o', '1', 'a')
+      board.set_position('o', '1', 'b')
+      expect(board.one_move_to_win('o')).to eq [%w(1 c)]
+    end
+  end
 end

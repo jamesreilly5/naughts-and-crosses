@@ -12,6 +12,11 @@ module ScoreUtils
                                    .map { |hash| hash[:index] }
   end
 
+  def one_move_to_win(marker)
+    winning_lines_map(marker, true).reject { |hash| hash if hash[:score] > 1 }
+                                   .map { |hash| hash[:index] }
+  end
+
   def winning_line?(marker)
     !winning_lines_map(marker, false).reject { |hash| hash if hash[:score] > 0 }.empty?
   end
