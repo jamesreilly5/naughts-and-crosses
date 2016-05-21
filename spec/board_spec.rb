@@ -18,17 +18,23 @@ RSpec.describe Board do
 
     context 'when invalid positions are provided' do
       it 'logs an error for invalid down' do
-        expect { board.set_position('x', 'a', 'a') }.to raise_error(InvalidMoveError, 'Invalid position: a, a')
+        expect { board.set_position('x', 'a', 'a') }.to raise_error(
+          InvalidMoveError, 'Invalid position: a, a, please enter 2 arguments - down (1-3) and across (a-c)'
+        )
       end
 
       it 'logs an error for invalid across' do
-        expect { board.set_position('x', '1', 'd') }.to raise_error(InvalidMoveError, 'Invalid position: 1, d')
+        expect { board.set_position('x', '1', 'd') }.to raise_error(
+          InvalidMoveError, 'Invalid position: 1, d, please enter 2 arguments - down (1-3) and across (a-c)'
+        )
       end
     end
 
     context 'when an invalid marker is provided' do
       it 'logs an error' do
-        expect { board.set_position('y', '1', 'b') }.to raise_error(InvalidMoveError, 'Invalid marker: y')
+        expect { board.set_position('y', '1', 'b') }.to raise_error(
+          InvalidMoveError, 'Invalid marker: y, please choose either \'x\' or \'o\''
+        )
       end
     end
 

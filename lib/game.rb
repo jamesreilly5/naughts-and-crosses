@@ -18,7 +18,7 @@ class Game
     send(@rule_stack[0])
 
   rescue InvalidMoveError => e
-    puts "Invalid command, please try again #{e}"
+    puts "Invalid command: '#{e}'"
   end
 
   def game_over
@@ -45,7 +45,7 @@ class Game
   end
 
   def human_player_turn
-    puts 'Choose a location on the grid!'
+    puts 'Choose a location on the grid, enter 2 arguments - down (1-3) and across (a-c)'
     input_args = @commmand_reader.read_input(2)
     @board.set_position(@player_marker, input_args[0], input_args[1])
     @rule_stack.rotate!

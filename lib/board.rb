@@ -42,7 +42,7 @@ class Board
 
   def validate_marker(marker)
     return true if VALID_MARKERS.include? marker
-    raise InvalidMoveError, "Invalid marker: #{marker}"
+    raise InvalidMoveError, "Invalid marker: #{marker}, please choose either 'x' or 'o'"
   end
 
   def opponent_marker(marker)
@@ -53,6 +53,9 @@ class Board
 
   def validate_position(down, across)
     return true if @board[down].is_a?(Hash) && !@board[down][across].nil?
-    raise InvalidMoveError, "Invalid position: #{down}, #{across}"
+    raise(
+      InvalidMoveError,
+      "Invalid position: #{down}, #{across}, please enter 2 arguments - down (1-3) and across (a-c)"
+    )
   end
 end
