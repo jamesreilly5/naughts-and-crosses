@@ -16,7 +16,7 @@ class Board
   end
 
   def set_position(marker, down, across)
-    validate_position(down, across) && validate_marker(marker)
+    validate_position(down, across) && validate_marker(marker) && validate_marker_empty(down, across)
     @board[down][across] = marker
   end
 
@@ -39,6 +39,11 @@ class Board
     )
   end
   # rubocop:enable AbcSize
+
+  def validate_marker_empty(down, across)
+    return true if marker_at_position(down, across) == EMPTY_VALUE
+    raise InvalidMoveError, 'This slot is already occupied, please try a different slot'
+  end
 
   def validate_marker(marker)
     return true if VALID_MARKERS.include? marker

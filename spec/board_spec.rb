@@ -28,6 +28,13 @@ RSpec.describe Board do
           InvalidMoveError, 'Invalid position: 1, d, please enter 2 arguments - down (1-3) and across (a-c)'
         )
       end
+
+      it 'logs an error if the slot is already occupied' do
+        board.set_position('x', '1', 'a')
+        expect { board.set_position('x', '1', 'a') }.to raise_error(
+          InvalidMoveError, 'This slot is already occupied, please try a different slot'
+        )
+      end
     end
 
     context 'when an invalid marker is provided' do
