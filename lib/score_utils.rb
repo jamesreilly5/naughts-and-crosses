@@ -7,7 +7,6 @@ module ScoreUtils
   # Problem: This algorithm doubles up on the middle slot and potentially
   # a the same slow can have the same score vertically and horizonally so
   # that's doubling up too.
-  # rubocop:disable AbcSize
   def winning_lines(marker)
     scores = []
 
@@ -17,11 +16,9 @@ module ScoreUtils
         add_turns_to_win_for_slot!(scores, marker, down, across)
       end
     end
-    scores.reject { |hash| hash[:score] > 3 }
-          .sort_by { |hash| hash[:score] }
+    scores.sort_by { |hash| hash[:score] }
           .map { |hash| hash[:index] }
   end
-  # rubocop:enable AbcSize
 
   def add_turns_to_win_for_slot!(scores, marker, down, across)
     scores << { index: [down, across], score: moves_to_win_horizontally(down, marker) }
