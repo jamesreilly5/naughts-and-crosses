@@ -24,3 +24,7 @@ Write a Ruby program that can play Noughts & Crosses with some intelligence buil
 
 ### Known issues
 * Game has no knowledge of diagonals being winning lines yet
+
+### Troubleshooting
+If you're using zshell and have issues interpeting return characters via user input, try using terminal instead
+
