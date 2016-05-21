@@ -77,4 +77,20 @@ RSpec.describe Board do
       expect(board.opponent_marker('o')).to eq 'x'
     end
   end
+
+  describe '#full?' do
+    it 'returns full if the board is full' do
+      board.set_position('x', '1', 'a')
+      board.set_position('x', '1', 'b')
+      board.set_position('x', '1', 'c')
+      board.set_position('x', '2', 'a')
+      board.set_position('x', '2', 'b')
+      board.set_position('x', '2', 'c')
+      board.set_position('x', '3', 'a')
+      board.set_position('x', '3', 'b')
+      expect(board.full?).to eq false
+      board.set_position('x', '3', 'c')
+      expect(board.full?).to eq true
+    end
+  end
 end

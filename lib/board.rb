@@ -54,6 +54,10 @@ class Board
     VALID_MARKERS.reject { |current_marker| current_marker == marker }[0]
   end
 
+  def full?
+    !@board.values.collect(&:values).flatten.include? EMPTY_VALUE
+  end
+
   private
 
   def validate_position(down, across)
