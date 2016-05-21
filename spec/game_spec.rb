@@ -3,7 +3,7 @@ require 'spec_helper'
 RSpec.describe Game do
   let(:game) { Game.new }
   let(:command_reader) { double(CommandReader, read_input: ['x']) }
-  let(:board) { double(Board, validate_position: true, opponent_marker: 'o') }
+  let(:board) { double(Board, validate_position: true, opponent_marker: 'o', full?: false) }
   let(:ai_player) { double(AIPlayer, take_turn: %W('2' 'a')) }
 
   describe '#run_next_rule' do
@@ -21,24 +21,28 @@ RSpec.describe Game do
         expect(board).to receive(:opponent_marker)
         expect(board).to receive(:report)
         expect(game).to receive(:check_if_any_player_has_won)
+        expect(game).to receive(:check_if_board_is_full)
         game.run_next_rule
 
         expect(command_reader).to receive(:read_input)
         expect(board).to receive(:set_position)
         expect(board).to receive(:report)
         expect(game).to receive(:check_if_any_player_has_won)
+        expect(game).to receive(:check_if_board_is_full)
         game.run_next_rule
 
         expect(ai_player).to receive(:take_turn)
         expect(board).to receive(:set_position)
         expect(board).to receive(:report)
         expect(game).to receive(:check_if_any_player_has_won)
+        expect(game).to receive(:check_if_board_is_full)
         game.run_next_rule
 
         expect(command_reader).to receive(:read_input)
         expect(board).to receive(:set_position)
         expect(board).to receive(:report)
         expect(game).to receive(:check_if_any_player_has_won)
+        expect(game).to receive(:check_if_board_is_full)
         game.run_next_rule
       end
     end

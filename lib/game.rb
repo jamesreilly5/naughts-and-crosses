@@ -16,8 +16,9 @@ class Game
   def run_next_rule
     puts '=' * 80
     puts @board.report
-    check_if_any_player_has_won
     send(@rule_stack[0])
+    check_if_any_player_has_won
+    check_if_board_is_full
   rescue InvalidMoveError => e
     puts "Invalid command: '#{e}'"
   end
@@ -36,6 +37,12 @@ class Game
       puts 'AI player has won'
       @game_over = true
     end
+  end
+
+  def check_if_board_is_full
+    return unless @board.full?
+    puts 'It\'s a draw!'
+    @game_over = true
   end
 
   def choose_marker

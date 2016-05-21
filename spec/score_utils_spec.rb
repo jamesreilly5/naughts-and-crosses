@@ -8,14 +8,12 @@ RSpec.describe ScoreUtils do
   describe '#winning_lines' do
     let(:expected_o_output) do
       [
-        %w(2 b ), %w(3 a ), %w(1 b ), %w(2 c ), %w(1 a ), %w(1 a ), %w(3 b ), %w(3 c ),
-        %w(3 c ), %w(1 b ), %w(2 b ), %w(2 c ), %w(3 a ), %w(3 b )
+        %w(2 b), %w(3 a), %w(1 b), %w(2 c), %w(1 a), %w(1 a), %w(1 b), %w(2 b), %w(2 c), %w(3 a)
       ]
     end
     let(:expected_x_output) do
       [
-        %w(3 a ), %w(2 b ), %w(1 b ), %w(1 c ), %w(2 c ), %w(2 a ), %w(2 b ), %w(2 c ),
-        %w(1 a ), %w(3 a ), %w(1 a ), %w(1 b ), %w(1 c ), %w(2 a )
+        %w(3 a), %w(2 b), %w(1 b), %w(2 c), %w(2 b), %w(2 c), %w(1 a), %w(3 a), %w(1 a), %w(1 b)
       ]
     end
     it 'reports the winning lines grouped by marker and ordered by moves' do

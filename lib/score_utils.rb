@@ -9,6 +9,7 @@ module ScoreUtils
   # that's doubling up too.
   def winning_lines(marker)
     winning_lines_map(marker, true).sort_by { |hash| hash[:score] }
+                                   .reject { |hash| hash unless hash[:empty] }
                                    .map { |hash| hash[:index] }
   end
 
@@ -17,8 +18,14 @@ module ScoreUtils
                                    .map { |hash| hash[:index] }
   end
 
+  # Check if any line has won
   def winning_line?(marker)
     !winning_lines_map(marker, false).reject { |hash| hash if hash[:score] > 0 }.empty?
+  end
+
+  def can_win?(marker)
+    # puts winning_lines_map(marker, false).reject { |hash| hash if hash[:score] > 3 }
+    !winning_lines_map(marker, false).reject { |hash| hash if hash[:score] > 3 }.empty?
   end
 
   def winning_lines_map(marker, ignore_occupied)
@@ -34,8 +41,10 @@ module ScoreUtils
   end
 
   def add_turns_to_win_for_slot!(scores, marker, down, across)
-    scores << { index: [down, across], score: moves_to_win_horizontally(down, marker) }
-    scores << { index: [down, across], score: moves_to_win_vertically(across, marker) }
+    scores << { index: [down, across], score: moves_to_win_horizontally(down, marker),
+                empty: marker_at_position(down, across) == EMPTY_VALUE }
+    scores << { index: [down, across], score: moves_to_win_vertically(across, marker),
+                empty: marker_at_position(down, across) == EMPTY_VALUE }
   end
 
   # Give a score for the row. nil if oponent is already in the row, 3 if all
