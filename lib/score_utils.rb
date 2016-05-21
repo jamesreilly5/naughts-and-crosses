@@ -8,16 +8,24 @@ module ScoreUtils
   # a the same slow can have the same score vertically and horizonally so
   # that's doubling up too.
   def winning_lines(marker)
+    winning_lines_map(marker, true).sort_by { |hash| hash[:score] }
+                                   .map { |hash| hash[:index] }
+  end
+
+  def winning_line?(marker)
+    winning_lines_map(marker, false).reject { |hash| hash if hash[:score] > 0  }.size > 0
+  end
+
+  def winning_lines_map(marker, ignore_occupied)
     scores = []
 
     @board.keys.each do |down|
       @board[down].keys.each do |across|
-        next if marker_at_position(down, across) == marker
+        next if (marker_at_position(down, across) == marker && ignore_occupied)
         add_turns_to_win_for_slot!(scores, marker, down, across)
       end
     end
-    scores.sort_by { |hash| hash[:score] }
-          .map { |hash| hash[:index] }
+    scores
   end
 
   def add_turns_to_win_for_slot!(scores, marker, down, across)
@@ -51,7 +59,6 @@ module ScoreUtils
 
   # Determine how to score the slot based on its content
   def calculate_score_for_marker(score, down, across, marker)
-    # binding.pry
     value = marker_at_position(down, across)
     return score if value == EMPTY_VALUE
     return (score - 1) if value == marker

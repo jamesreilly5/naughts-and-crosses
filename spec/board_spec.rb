@@ -94,4 +94,19 @@ RSpec.describe Board do
       expect(board.opponent_marker('o')).to eq 'x'
     end
   end
+
+  describe '#winning_line?' do
+    it 'return true for a winning line' do
+      board.set_position('o', '1', 'a')
+      board.set_position('o', '1', 'b')
+      board.set_position('o', '1', 'c')
+      expect(board.winning_line?('o')).to eq true
+    end
+
+    it 'return false for a winning line' do
+      board.set_position('o', '1', 'a')
+      board.set_position('o', '1', 'b')
+      expect(board.winning_line?('o')).to eq false
+    end
+  end
 end
