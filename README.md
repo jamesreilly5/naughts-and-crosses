@@ -23,5 +23,4 @@ Write a Ruby program that can play Noughts & Crosses with some intelligence buil
 ```bundle exec rake```
 
 ### Known issues
-* Game has no knowledge of diagonals being winning lines
-* AI doesn't block winning moves yet
+* Game has no knowledge of diagonals being winning lines yet
