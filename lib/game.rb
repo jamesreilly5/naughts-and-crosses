@@ -14,33 +14,40 @@ class Game
   end
 
   def run_next_rule
+    puts @board.report
     send(@rule_stack[0])
-    @board.report
-  rescue InvalidMoveError
-    puts 'Invalid command, please try again'
+
+  rescue InvalidMoveError => e
+    puts "Invalid command, please try again #{e}"
+  end
+
+  def game_over
+    false
   end
 
   private
 
   def choose_marker
-    input_args = @commmand_reader.read_input
-    # TODO: Work out where to parse this from user input, maybe tell it how many
-    # args we expect and parse string accordingly command_reader throw argument
-    # exception when wrong number supplied.
-    @board.validate_marker(input_args[0])
+    puts "choose your marker, either 'x' or 'o'"
+    marker = @commmand_reader.read_input(1)[0]
+    @board.validate_marker(marker)
+    @player_marker = marker
+    @ai_marker = @board.opponent_marker(marker)
     # Only need this rule once
     @rule_stack.shift
   end
 
   def ai_player_turn
-    input_args = @ai_player.take_turn
-    @board.set_position(input_args[0], input_args[1], input_args[2])
+    input_args = @ai_player.take_turn(@board, @ai_marker)
+    puts "AI Player has chosen #{input_args[0]}, #{input_args[1]}"
+    @board.set_position(@ai_marker, input_args[0], input_args[1])
     @rule_stack.rotate!
   end
 
   def human_player_turn
-    input_args = @commmand_reader.read_input
-    @board.set_position(input_args[0], input_args[1], input_args[2])
+    puts 'Choose a location on the grid!'
+    input_args = @commmand_reader.read_input(2)
+    @board.set_position(@player_marker, input_args[0], input_args[1])
     @rule_stack.rotate!
   end
 end
